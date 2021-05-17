@@ -31,6 +31,7 @@ export default function DataPreprocess() {
     return (
         <div>
             <h2>Data Preprocessing</h2>
+            <p>Upload any dataset</p>
     <Upload {...props}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
     </Upload>

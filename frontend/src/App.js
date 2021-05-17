@@ -42,6 +42,14 @@ class App extends React.Component {
         <Layout>
           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <div className="logo" />
+            {
+              !this.state.collapsed && 
+              <p className="mainText">Auto ML</p>
+            }
+            {
+              this.state.collapsed && 
+              <p className="mainText">A-ML</p>
+            }
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
               <Menu.Item key="1" icon={<HomeOutlined />}>
                 <Link to="/">
@@ -55,7 +63,7 @@ class App extends React.Component {
               </Menu.Item>
               <Menu.Item key="3" icon={<VideoCameraOutlined />}>
                 <Link to="/model">
-                  Create Model
+                  Build Model
                 </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<UploadOutlined />}>

@@ -31,6 +31,7 @@ export default function Model() {
     return (
         <div>
             <h2>Model</h2>
+            <p>Upload Processed / Clean Dataset</p>
     <Upload {...props}>
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
     </Upload>

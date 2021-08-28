@@ -194,3 +194,657 @@
 Search finished after 00:22            
 05/15/2021 07:36:27 PM - INFO - automl_search.py: Best pipeline: Logistic Regression Classifier w/ Imputer + Standard Scaler
 05/15/2021 07:36:27 PM - INFO - automl_search.py: Best pipeline Log Loss Binary: 0.094015
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Using default limit of max_batches=1.
+
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Generating pipelines to search over...
+07/31/2021 12:55:14 PM - DEBUG - automl_search.py: allowed_estimators set to ['Decision Tree Classifier', 'LightGBM Classifier', 'Extra Trees Classifier', 'Elastic Net Classifier', 'CatBoost Classifier', 'XGBoost Classifier', 'Random Forest Classifier', 'Logistic Regression Classifier']
+07/31/2021 12:55:14 PM - DEBUG - automl_search.py: allowed_pipelines set to ['Decision Tree Classifier w/ Imputer', 'LightGBM Classifier w/ Imputer', 'Extra Trees Classifier w/ Imputer', 'Elastic Net Classifier w/ Imputer + Standard Scaler', 'CatBoost Classifier w/ Imputer', 'XGBoost Classifier w/ Imputer', 'Random Forest Classifier w/ Imputer', 'Logistic Regression Classifier w/ Imputer + Standard Scaler']
+07/31/2021 12:55:14 PM - DEBUG - automl_search.py: allowed_model_families set to [ModelFamily.DECISION_TREE, ModelFamily.LIGHTGBM, ModelFamily.XGBOOST, ModelFamily.CATBOOST, ModelFamily.RANDOM_FOREST, ModelFamily.EXTRA_TREES, ModelFamily.LINEAR_MODEL]
+07/31/2021 12:55:14 PM - INFO - logger.py: 
+*****************************
+07/31/2021 12:55:14 PM - INFO - logger.py: * Beginning pipeline search *
+07/31/2021 12:55:14 PM - INFO - logger.py: *****************************
+07/31/2021 12:55:14 PM - INFO - logger.py: 
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Optimizing for Log Loss Binary. 
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Lower score is better.
+
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Using SequentialEngine to train and score pipelines.
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Searching up to 1 batches for a total of 9 pipelines. 
+07/31/2021 12:55:14 PM - INFO - automl_search.py: Allowed model families: decision_tree, lightgbm, xgboost, catboost, random_forest, extra_trees, linear_model
+
+07/31/2021 12:55:16 PM - INFO - automl_search.py: Evaluating Baseline Pipeline: Mode Baseline Binary Classification Pipeline
+07/31/2021 12:55:16 PM - INFO - engine_base.py: Mode Baseline Binary Classification Pipeline:
+07/31/2021 12:55:16 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 12.952
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 12.952
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:16 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 12.809
+07/31/2021 12:55:16 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 12.904
+07/31/2021 12:55:16 PM - INFO - logger.py: 
+*****************************
+07/31/2021 12:55:16 PM - INFO - logger.py: * Evaluating Batch Number 1 *
+07/31/2021 12:55:16 PM - INFO - logger.py: *****************************
+07/31/2021 12:55:16 PM - INFO - logger.py: 
+07/31/2021 12:55:17 PM - INFO - engine_base.py: Elastic Net Classifier w/ Imputer + Standard Scaler:
+07/31/2021 12:55:17 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.497
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.513
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.508
+07/31/2021 12:55:17 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.506
+07/31/2021 12:55:17 PM - INFO - engine_base.py: Decision Tree Classifier w/ Imputer:
+07/31/2021 12:55:17 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 2.727
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 1.818
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:17 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 2.751
+07/31/2021 12:55:17 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 2.432
+07/31/2021 12:55:17 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	Decision Tree Classifier w/ Imputer may not perform as estimated on unseen data.
+07/31/2021 12:55:19 PM - INFO - engine_base.py: Random Forest Classifier w/ Imputer:
+07/31/2021 12:55:19 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.100
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.122
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:19 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.138
+07/31/2021 12:55:19 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.120
+07/31/2021 12:55:20 PM - INFO - engine_base.py: LightGBM Classifier w/ Imputer:
+07/31/2021 12:55:20 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.111
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.128
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:20 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.160
+07/31/2021 12:55:20 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.133
+07/31/2021 12:55:24 PM - INFO - engine_base.py: Logistic Regression Classifier w/ Imputer + Standard Scaler:
+07/31/2021 12:55:24 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.061
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.128
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:24 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.093
+07/31/2021 12:55:24 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.094
+07/31/2021 12:55:24 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	Logistic Regression Classifier w/ Imputer + Standard Scaler may not perform as estimated on unseen data.
+07/31/2021 12:55:25 PM - INFO - engine_base.py: XGBoost Classifier w/ Imputer:
+07/31/2021 12:55:25 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.069
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.141
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:25 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.129
+07/31/2021 12:55:25 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.113
+07/31/2021 12:55:25 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	XGBoost Classifier w/ Imputer may not perform as estimated on unseen data.
+07/31/2021 12:55:26 PM - INFO - engine_base.py: Extra Trees Classifier w/ Imputer:
+07/31/2021 12:55:26 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.111
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.145
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:26 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.155
+07/31/2021 12:55:26 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.137
+07/31/2021 12:55:27 PM - INFO - engine_base.py: CatBoost Classifier w/ Imputer:
+07/31/2021 12:55:27 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.374
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.397
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 12:55:27 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.387
+07/31/2021 12:55:27 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.386
+07/31/2021 12:55:27 PM - INFO - automl_search.py: 
+Search finished after 00:11            
+07/31/2021 12:55:28 PM - INFO - automl_search.py: Best pipeline: Logistic Regression Classifier w/ Imputer + Standard Scaler
+07/31/2021 12:55:28 PM - INFO - automl_search.py: Best pipeline Log Loss Binary: 0.094015
+07/31/2021 01:04:01 PM - INFO - automl_search.py: Using default limit of max_batches=1.
+
+07/31/2021 01:04:01 PM - INFO - automl_search.py: Generating pipelines to search over...
+07/31/2021 01:04:01 PM - DEBUG - automl_search.py: allowed_estimators set to ['Decision Tree Classifier', 'LightGBM Classifier', 'Extra Trees Classifier', 'Elastic Net Classifier', 'CatBoost Classifier', 'XGBoost Classifier', 'Random Forest Classifier', 'Logistic Regression Classifier']
+07/31/2021 01:04:02 PM - DEBUG - automl_search.py: allowed_pipelines set to ['Decision Tree Classifier w/ Imputer', 'LightGBM Classifier w/ Imputer', 'Extra Trees Classifier w/ Imputer', 'Elastic Net Classifier w/ Imputer + Standard Scaler', 'CatBoost Classifier w/ Imputer', 'XGBoost Classifier w/ Imputer', 'Random Forest Classifier w/ Imputer', 'Logistic Regression Classifier w/ Imputer + Standard Scaler']
+07/31/2021 01:04:02 PM - DEBUG - automl_search.py: allowed_model_families set to [ModelFamily.DECISION_TREE, ModelFamily.LIGHTGBM, ModelFamily.XGBOOST, ModelFamily.CATBOOST, ModelFamily.RANDOM_FOREST, ModelFamily.EXTRA_TREES, ModelFamily.LINEAR_MODEL]
+07/31/2021 01:04:02 PM - INFO - logger.py: 
+*****************************
+07/31/2021 01:04:02 PM - INFO - logger.py: * Beginning pipeline search *
+07/31/2021 01:04:02 PM - INFO - logger.py: *****************************
+07/31/2021 01:04:02 PM - INFO - logger.py: 
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Optimizing for Log Loss Binary. 
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Lower score is better.
+
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Using SequentialEngine to train and score pipelines.
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Searching up to 1 batches for a total of 9 pipelines. 
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Allowed model families: decision_tree, lightgbm, xgboost, catboost, random_forest, extra_trees, linear_model
+
+07/31/2021 01:04:02 PM - INFO - automl_search.py: Evaluating Baseline Pipeline: Mode Baseline Binary Classification Pipeline
+07/31/2021 01:04:02 PM - INFO - engine_base.py: Mode Baseline Binary Classification Pipeline:
+07/31/2021 01:04:02 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 12.952
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 12.952
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:02 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 12.809
+07/31/2021 01:04:02 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 12.904
+07/31/2021 01:04:02 PM - INFO - logger.py: 
+*****************************
+07/31/2021 01:04:02 PM - INFO - logger.py: * Evaluating Batch Number 1 *
+07/31/2021 01:04:02 PM - INFO - logger.py: *****************************
+07/31/2021 01:04:02 PM - INFO - logger.py: 
+07/31/2021 01:04:03 PM - INFO - engine_base.py: Elastic Net Classifier w/ Imputer + Standard Scaler:
+07/31/2021 01:04:03 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.497
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.513
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.508
+07/31/2021 01:04:03 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.506
+07/31/2021 01:04:03 PM - INFO - engine_base.py: Decision Tree Classifier w/ Imputer:
+07/31/2021 01:04:03 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 2.727
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 1.818
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:03 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 2.751
+07/31/2021 01:04:03 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 2.432
+07/31/2021 01:04:03 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	Decision Tree Classifier w/ Imputer may not perform as estimated on unseen data.
+07/31/2021 01:04:04 PM - INFO - engine_base.py: Random Forest Classifier w/ Imputer:
+07/31/2021 01:04:04 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.100
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.122
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:04 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.138
+07/31/2021 01:04:04 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.120
+07/31/2021 01:04:05 PM - INFO - engine_base.py: LightGBM Classifier w/ Imputer:
+07/31/2021 01:04:05 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.111
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.128
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:05 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.160
+07/31/2021 01:04:05 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.133
+07/31/2021 01:04:09 PM - INFO - engine_base.py: Logistic Regression Classifier w/ Imputer + Standard Scaler:
+07/31/2021 01:04:09 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.061
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.128
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:09 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.093
+07/31/2021 01:04:09 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.094
+07/31/2021 01:04:09 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	Logistic Regression Classifier w/ Imputer + Standard Scaler may not perform as estimated on unseen data.
+07/31/2021 01:04:10 PM - INFO - engine_base.py: XGBoost Classifier w/ Imputer:
+07/31/2021 01:04:10 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.069
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.141
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:10 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.129
+07/31/2021 01:04:10 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.113
+07/31/2021 01:04:10 PM - WARNING - automl_search.py: 	High coefficient of variation (cv >= 0.2) within cross validation scores.
+	XGBoost Classifier w/ Imputer may not perform as estimated on unseen data.
+07/31/2021 01:04:11 PM - INFO - engine_base.py: Extra Trees Classifier w/ Imputer:
+07/31/2021 01:04:11 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.111
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.145
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:11 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.155
+07/31/2021 01:04:11 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.137
+07/31/2021 01:04:12 PM - INFO - engine_base.py: CatBoost Classifier w/ Imputer:
+07/31/2021 01:04:12 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 0: Log Loss Binary score: 0.374
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 1: Log Loss Binary score: 0.397
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:12 PM - DEBUG - engine_base.py: 			Fold 2: Log Loss Binary score: 0.387
+07/31/2021 01:04:12 PM - INFO - engine_base.py: 	Finished cross validation - mean Log Loss Binary: 0.386
+07/31/2021 01:04:12 PM - INFO - automl_search.py: 
+Search finished after 00:10            
+07/31/2021 01:04:13 PM - INFO - automl_search.py: Best pipeline: Logistic Regression Classifier w/ Imputer + Standard Scaler
+07/31/2021 01:04:13 PM - INFO - automl_search.py: Best pipeline Log Loss Binary: 0.094015
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+***************************************************************
+07/31/2021 01:04:14 PM - INFO - logger.py: * Logistic Regression Classifier w/ Imputer + Standard Scaler *
+07/31/2021 01:04:14 PM - INFO - logger.py: ***************************************************************
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:14 PM - INFO - pipeline_base.py: Problem Type: binary
+07/31/2021 01:04:14 PM - INFO - pipeline_base.py: Model Family: Linear
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:14 PM - INFO - logger.py: Pipeline Steps
+07/31/2021 01:04:14 PM - INFO - logger.py: ==============
+07/31/2021 01:04:14 PM - INFO - pipeline_base.py: 1. Imputer
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * categorical_impute_strategy : most_frequent
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * numeric_impute_strategy : mean
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * categorical_fill_value : None
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * numeric_fill_value : None
+07/31/2021 01:04:14 PM - INFO - pipeline_base.py: 2. Standard Scaler
+07/31/2021 01:04:14 PM - INFO - pipeline_base.py: 3. Logistic Regression Classifier
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * penalty : l2
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * C : 1.0
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * n_jobs : -1
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * multi_class : auto
+07/31/2021 01:04:14 PM - INFO - component_base.py: 	 * solver : lbfgs
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:14 PM - INFO - logger.py: Training
+07/31/2021 01:04:14 PM - INFO - logger.py: ========
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Training for binary problems.
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Total training time (including CV): 4.0 seconds
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:14 PM - INFO - logger.py: Cross Validation
+07/31/2021 01:04:14 PM - INFO - logger.py: ----------------
+07/31/2021 01:04:14 PM - INFO - automl_search.py:              Log Loss Binary  MCC Binary   AUC  Precision    F1  Balanced Accuracy Binary  Accuracy Binary  Sensitivity at Low Alert Rates # Training # Validation
+0                      0.061       0.958 0.997      0.966 0.974                     0.981            0.980                           0.412        303          152
+1                      0.128       0.930 0.984      0.981 0.955                     0.960            0.967                           0.333        303          152
+2                      0.093       0.944 0.993      1.000 0.963                     0.964            0.974                           0.261        304          151
+mean                   0.094       0.944 0.991      0.982 0.964                     0.968            0.974                           0.335          -            -
+std                    0.034       0.014 0.006      0.017 0.010                     0.011            0.007                           0.075          -            -
+coef of var            0.359       0.015 0.007      0.018 0.010                     0.011            0.007                           0.225          -            -
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Generating pipelines to search over...
+07/31/2021 01:04:14 PM - DEBUG - automl_search.py: allowed_estimators set to ['Decision Tree Classifier', 'LightGBM Classifier', 'Extra Trees Classifier', 'Elastic Net Classifier', 'CatBoost Classifier', 'XGBoost Classifier', 'Random Forest Classifier', 'Logistic Regression Classifier']
+07/31/2021 01:04:14 PM - DEBUG - automl_search.py: allowed_pipelines set to ['Decision Tree Classifier w/ Imputer', 'LightGBM Classifier w/ Imputer', 'Extra Trees Classifier w/ Imputer', 'Elastic Net Classifier w/ Imputer + Standard Scaler', 'CatBoost Classifier w/ Imputer', 'XGBoost Classifier w/ Imputer', 'Random Forest Classifier w/ Imputer', 'Logistic Regression Classifier w/ Imputer + Standard Scaler']
+07/31/2021 01:04:14 PM - DEBUG - automl_search.py: allowed_model_families set to [ModelFamily.DECISION_TREE, ModelFamily.LIGHTGBM, ModelFamily.XGBOOST, ModelFamily.CATBOOST, ModelFamily.RANDOM_FOREST, ModelFamily.EXTRA_TREES, ModelFamily.LINEAR_MODEL]
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+*****************************
+07/31/2021 01:04:14 PM - INFO - logger.py: * Beginning pipeline search *
+07/31/2021 01:04:14 PM - INFO - logger.py: *****************************
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Optimizing for AUC. 
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Greater score is better.
+
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Using SequentialEngine to train and score pipelines.
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Searching up to 1 batches for a total of 9 pipelines. 
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Allowed model families: decision_tree, lightgbm, xgboost, catboost, random_forest, extra_trees, linear_model
+
+07/31/2021 01:04:14 PM - INFO - automl_search.py: Evaluating Baseline Pipeline: Mode Baseline Binary Classification Pipeline
+07/31/2021 01:04:14 PM - INFO - engine_base.py: Mode Baseline Binary Classification Pipeline:
+07/31/2021 01:04:14 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.500
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.500
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:14 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.500
+07/31/2021 01:04:14 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.500
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+*****************************
+07/31/2021 01:04:14 PM - INFO - logger.py: * Evaluating Batch Number 1 *
+07/31/2021 01:04:14 PM - INFO - logger.py: *****************************
+07/31/2021 01:04:14 PM - INFO - logger.py: 
+07/31/2021 01:04:15 PM - INFO - engine_base.py: Elastic Net Classifier w/ Imputer + Standard Scaler:
+07/31/2021 01:04:15 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.997
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.975
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.983
+07/31/2021 01:04:15 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.985
+07/31/2021 01:04:15 PM - INFO - engine_base.py: Decision Tree Classifier w/ Imputer:
+07/31/2021 01:04:15 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.919
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.944
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:15 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.907
+07/31/2021 01:04:15 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.923
+07/31/2021 01:04:17 PM - INFO - engine_base.py: Random Forest Classifier w/ Imputer:
+07/31/2021 01:04:17 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.994
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.995
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:17 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.988
+07/31/2021 01:04:17 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.992
+07/31/2021 01:04:18 PM - INFO - engine_base.py: LightGBM Classifier w/ Imputer:
+07/31/2021 01:04:18 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.992
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.992
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:18 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.989
+07/31/2021 01:04:18 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.991
+07/31/2021 01:04:21 PM - INFO - engine_base.py: Logistic Regression Classifier w/ Imputer + Standard Scaler:
+07/31/2021 01:04:21 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.997
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.984
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:21 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.993
+07/31/2021 01:04:21 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.991
+07/31/2021 01:04:22 PM - INFO - engine_base.py: XGBoost Classifier w/ Imputer:
+07/31/2021 01:04:22 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.996
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.988
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:22 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.991
+07/31/2021 01:04:22 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.991
+07/31/2021 01:04:23 PM - INFO - engine_base.py: Extra Trees Classifier w/ Imputer:
+07/31/2021 01:04:23 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.996
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.994
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:23 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.988
+07/31/2021 01:04:23 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.993
+07/31/2021 01:04:24 PM - INFO - engine_base.py: CatBoost Classifier w/ Imputer:
+07/31/2021 01:04:24 PM - INFO - engine_base.py: 	Starting cross validation
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 0
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 0: starting training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 0: finished training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 0: Scoring trained pipeline
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 0: AUC score: 0.994
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 1
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 1: starting training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 1: finished training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 1: Scoring trained pipeline
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 1: AUC score: 0.993
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 		Training and scoring on fold 2
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 2: starting training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 2: finished training
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 2: Scoring trained pipeline
+07/31/2021 01:04:24 PM - DEBUG - engine_base.py: 			Fold 2: AUC score: 0.987
+07/31/2021 01:04:24 PM - INFO - engine_base.py: 	Finished cross validation - mean AUC: 0.991
+07/31/2021 01:04:24 PM - INFO - automl_search.py: 
+Search finished after 00:10            
+07/31/2021 01:04:25 PM - INFO - automl_search.py: Best pipeline: Extra Trees Classifier w/ Imputer
+07/31/2021 01:04:25 PM - INFO - automl_search.py: Best pipeline AUC: 0.992791
+07/31/2021 01:04:25 PM - INFO - logger.py: 
+*************************************
+07/31/2021 01:04:25 PM - INFO - logger.py: * Extra Trees Classifier w/ Imputer *
+07/31/2021 01:04:25 PM - INFO - logger.py: *************************************
+07/31/2021 01:04:25 PM - INFO - logger.py: 
+07/31/2021 01:04:25 PM - INFO - pipeline_base.py: Problem Type: binary
+07/31/2021 01:04:25 PM - INFO - pipeline_base.py: Model Family: Extra Trees
+07/31/2021 01:04:25 PM - INFO - logger.py: 
+07/31/2021 01:04:25 PM - INFO - logger.py: Pipeline Steps
+07/31/2021 01:04:25 PM - INFO - logger.py: ==============
+07/31/2021 01:04:25 PM - INFO - pipeline_base.py: 1. Imputer
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * categorical_impute_strategy : most_frequent
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * numeric_impute_strategy : mean
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * categorical_fill_value : None
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * numeric_fill_value : None
+07/31/2021 01:04:25 PM - INFO - pipeline_base.py: 2. Extra Trees Classifier
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * n_estimators : 100
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * max_features : auto
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * max_depth : 6
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * min_samples_split : 2
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * min_weight_fraction_leaf : 0.0
+07/31/2021 01:04:25 PM - INFO - component_base.py: 	 * n_jobs : -1
+07/31/2021 01:04:25 PM - INFO - logger.py: 
+07/31/2021 01:04:25 PM - INFO - logger.py: Training
+07/31/2021 01:04:25 PM - INFO - logger.py: ========
+07/31/2021 01:04:25 PM - INFO - automl_search.py: Training for binary problems.
+07/31/2021 01:04:25 PM - INFO - automl_search.py: Total training time (including CV): 0.9 seconds
+07/31/2021 01:04:25 PM - INFO - logger.py: 
+07/31/2021 01:04:25 PM - INFO - logger.py: Cross Validation
+07/31/2021 01:04:25 PM - INFO - logger.py: ----------------
+07/31/2021 01:04:25 PM - INFO - automl_search.py:               AUC    F1  Precision # Training # Validation
+0           0.996 0.964      0.982        303          152
+1           0.994 0.914      1.000        303          152
+2           0.988 0.927      0.944        304          151
+mean        0.993 0.935      0.975          -            -
+std         0.004 0.026      0.028          -            -
+coef of var 0.004 0.028      0.029          -            -

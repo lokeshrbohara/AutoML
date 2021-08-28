@@ -1,16 +1,53 @@
-from flask import Flask	
-app = Flask(__name__) 
-
+from flask import Flask, request, redirect
+from flask_cors import CORS, cross_origin
+from werkzeug.utils import secure_filename
 from categorical import *
 from continuous import *
+import os
 
-@app.route('/')	
-def process_data():
+
+UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\uploads'
+app = Flask(__name__)
+cors = CORS(app, resources={"/upload": {"origins": "*"}})
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+@app.route("/upload", methods=['GET', 'POST'])
+@cross_origin()
+def getDataset():
+	print("INSIDEEEEEEEEEEEEEE")
+	if request.method == 'POST':
+		print("request*****************************")
+		if 'file' not in request.files:
+			print('no file')
+			print("############################################")
+			return redirect(request.url)
+		file = request.files['file']
+		if file.filename == '':
+			print("(((((((((((((((((((((((((((((((((((((((((((((((")
+			print('no filename')
+			return redirect(request.url)
+		else:
+			print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+			filename = secure_filename(file.filename)
+			print("PATHHHH = ", os.getcwd())
+			file.save(UPLOAD_FOLDER)
+			print("saved file successfully")
+	return redirect('/process')
+
+
+@app.route("/")
+def Home():
+	return "Hello"
+
+
+@app.route('/process')	
+def process_data(path):
     """ Function will take the uploaded csv and perform Cleaning and return the cleaned CSV """
     # Call Continuous data preprocessing
     # Call Categorical data preprocessing
-    
-	return 'HELLO'
+    data = ContinuousPreProcess(path)
+    data.to_csv('/content/Final_Data.csv', header=True, index=False)
 
 
 def process_categorical(path_of_csv):
@@ -63,4 +100,4 @@ def encodeData(path_of_csv):
     df.to_csv("/content/Encoded.csv", index=False)
 
 if __name__=='__main__':
-    app.run()
+    app.run(debug=True)

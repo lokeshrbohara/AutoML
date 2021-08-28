@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 export default function DataPreprocess() {
     const props = {
         name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        action: 'http://127.0.0.1:5000/upload',
         headers: {
             authorization: 'authorization-text',
         },

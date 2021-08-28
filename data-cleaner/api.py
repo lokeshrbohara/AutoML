@@ -31,9 +31,9 @@ def getDataset():
 			print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 			filename = secure_filename(file.filename)
 			print("PATHHHH = ", os.getcwd())
-			file.save(UPLOAD_FOLDER)
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			print("saved file successfully")
-	return redirect('/process')
+			return redirect('/process')
 
 
 @app.route("/")

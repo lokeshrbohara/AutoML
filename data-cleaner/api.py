@@ -5,11 +5,12 @@ from werkzeug.utils import secure_filename
 from categorical import *
 from continuous import *
 import os
+import json
 
 
 UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\uploads'
 app = Flask(__name__)
-cors = CORS(app, resources={"/upload": {"origins": "*"}})
+cors = CORS(app, resources={"/*": {"origins": "*"}})
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -32,9 +33,9 @@ def getDataset():
 			print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 			filename = secure_filename(file.filename)
 			print("PATHHHH = ", os.getcwd())
-			file.save(UPLOAD_FOLDER)
+			file.save(os.path.join(UPLOAD_FOLDER, filename))
 			print("saved file successfully")
-	return redirect('/process')
+			return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 @app.route("/")

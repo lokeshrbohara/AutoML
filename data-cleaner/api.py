@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 from flask_cors import CORS, cross_origin
+from numpy.core.numeric import full_like
 from werkzeug.utils import secure_filename
 from categorical import *
 from continuous import *
@@ -42,15 +43,19 @@ def Home():
 
 
 @app.route('/process')	
-def process_data(path):
+def process_data(path, filename):
     """ Function will take the uploaded csv and perform Cleaning and return the cleaned CSV """
     # Call Continuous data preprocessing
     # Call Categorical data preprocessing
-    data = ContinuousPreProcess(path)
-    data.to_csv('/content/Final_Data.csv', header=True, index=False)
+    
+    data = ContinuousPreProcess(path+"\\"+filename)
+    data.to_csv(path+"\\"+filename.remove(".csv")+"\\Continuous_Processed.csv", header=True, index=False)
+    categorical_processed_path = process_categorical(path+filename, filename)
 
 
-def process_categorical(path_of_csv):
+
+
+def process_categorical(path_of_csv, filename):
     """ Function to process Categorical Data """
     
     df = pd.read_csv(path_of_csv) # reading csv file

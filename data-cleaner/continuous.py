@@ -89,7 +89,7 @@ def remove_outlier(DF, col_name):
     return d
 
 
-def OutlierAnalysis():
+def OutlierAnalysis(path):
     data = pd.read_csv(path)  # Reading dataset
     col_name = CheckUnique(data)  # Removing unique columns
     data = data[col_name]  # Columns names which are not unique

@@ -8,7 +8,9 @@ import os
 import json
 
 
-UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\uploads'
+# UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\uploads'
+UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
+
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -17,43 +19,48 @@ cors = CORS(app, resources={"/*": {"origins": "*"}})
 @app.route("/upload", methods=['GET', 'POST'])
 @cross_origin()
 def getDataset():
-	print("INSIDEEEEEEEEEEEEEE")
-	if request.method == 'POST':
-		print("request*****************************")
-		if 'file' not in request.files:
-			print('no file')
-			print("############################################")
-			return redirect(request.url)
-		file = request.files['file']
-		if file.filename == '':
-			print("(((((((((((((((((((((((((((((((((((((((((((((((")
-			print('no filename')
-			return redirect(request.url)
-		else:
-			print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-			filename = secure_filename(file.filename)
-			print("PATHHHH = ", os.getcwd())
-			file.save(os.path.join(UPLOAD_FOLDER, filename))
-			print("saved file successfully")
-			return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+    print("INSIDEEEEEEEEEEEEEE")
+    if request.method == 'POST':
+        print("request*****************************")
+        if 'file' not in request.files:
+            print('no file')
+            print("############################################")
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            print("(((((((((((((((((((((((((((((((((((((((((((((((")
+            print('no filename')
+            return redirect(request.url)
+        else:
+            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            filename = secure_filename(file.filename)
+            print("PATHHHH = ", os.getcwd())
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            print("saved file successfully")
+            continuous_processed_path, categorical_processed_path, final_encoded_path = process_data(UPLOAD_FOLDER, filename)
+            return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 
 @app.route("/")
 def Home():
 	return "Hello"
 
-
-@app.route('/process')	
 def process_data(path, filename):
     """ Function will take the uploaded csv and perform Cleaning and return the cleaned CSV """
     # Call Continuous data preprocessing
     # Call Categorical data preprocessing
-    
+    print("Preprocessing Started")
     data = ContinuousPreProcess(path+"\\"+filename)
-    data.to_csv(path+"\\"+filename.remove(".csv")+"\\Continuous_Processed.csv", header=True, index=False)
-    categorical_processed_path = process_categorical(path+filename, filename)
+    print("Done Preprocessing Continuous")
+    data.to_csv(path+"\\"+filename.replace(".csv", "")+"_Continuous_Processed.csv", header=True, index=False)
+    print("File saved")
+    continuous_processed_path = path+"\\"+filename.replace(".csv", "")+"_Continuous_Processed.csv"
+    categorical_processed_path, n = process_categorical(path+"\\"+filename.replace(".csv", "")+"_Continuous_Processed.csv", filename)
+    print("Done Preprocessing Categorical")
+    final_encoded_path = encodeData(categorical_processed_path, n)
+    print("File Encoded")
 
-
+    return (continuous_processed_path, categorical_processed_path, final_encoded_path)
 
 
 def process_categorical(path_of_csv, filename):
@@ -68,7 +75,7 @@ def process_categorical(path_of_csv, filename):
     for i in range(len(df_keys)):
 
         if(sr.get(key = df_keys[i])==0): break
-        if(not isCategorical(df[df_keys[i]])): continue
+        if(not isCategorical(df[df_keys[i]], n)): continue
 
         l1 = df.drop([df_keys[i]], axis = 1).dropna().index.tolist() # keeps a track of all rows which do not have any null values except df_keys[i]
         l2 = df[df[df_keys[i]].isnull()].index.tolist() # keeps a track of all null values in df_keys[i]
@@ -79,10 +86,11 @@ def process_categorical(path_of_csv, filename):
         print(df_keys[i], df_pred)
 
     df = df.dropna()
-    df.to_csv("/content/Cleaned.csv")
+    df.to_csv(path_of_csv.replace("_Continuous_Processed.csv","")+"_Categorical_Processed.csv", header=True, index=False)
+    return (path_of_csv.replace("_Continuous_Processed.csv","")+"_Categorical_Processed.csv", n)
 
 
-def encodeData(path_of_csv):
+def encodeData(path_of_csv, n):
     """ Funtion to encode the CSV file with strings to one hot encoded columns """
 
     df = pd.read_csv(path_of_csv)
@@ -94,7 +102,7 @@ def encodeData(path_of_csv):
             only_str.append(df.columns[i])
 
     for i in only_str:
-        if(not isCategorical(df[i])): 
+        if(not isCategorical(df[i],n)): 
             to_remove.append(only_str.pop(only_str.index(i)))
 
     df = df.drop(to_remove, axis = 1)
@@ -103,7 +111,9 @@ def encodeData(path_of_csv):
     df = pd.DataFrame(df)
 
     df = df.dropna()
-    df.to_csv("/content/Encoded.csv", index=False)
+    df.to_csv(path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv"), index=False)
+
+    return path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv")
 
 if __name__=='__main__':
     app.run(debug=True)

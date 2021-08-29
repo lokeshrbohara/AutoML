@@ -17,7 +17,7 @@ from sklearn.preprocessing import LabelEncoder
 Le = LabelEncoder()
 
 
-def isCategorical(col):
+def isCategorical(col, n):
     """ Function to check if a column is contains categorical data """
     l = len(pd.unique(col))
     if((n//l)<(n*0.05)):

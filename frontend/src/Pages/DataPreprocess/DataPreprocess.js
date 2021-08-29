@@ -10,7 +10,7 @@ export default function DataPreprocess() {
             authorization: 'authorization-text',
         },
         onChange(info) {
-            console.log(info.file.status);
+            console.log(info);
             if (info.file.status !== 'uploading') {
                 console.log(info.file, info.fileList);
             }
@@ -34,9 +34,10 @@ export default function DataPreprocess() {
         <div>
             <h2>Data Preprocessing</h2>
             <p>Upload any dataset</p>
-    <Upload {...props}>
-        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-    </Upload>
+            <Upload {...props}>
+                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+            <div id="processed_data"></div>
         </div>
     )
 }

@@ -8,8 +8,8 @@ import os
 import json
 
 
-# UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\uploads'
-UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
+UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
+# UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
@@ -38,7 +38,9 @@ def getDataset():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             print("saved file successfully")
             continuous_processed_path, categorical_processed_path, final_encoded_path = process_data(UPLOAD_FOLDER, filename)
-            return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+            data=pd.read_csv(final_encoded_path)
+            df = str(data.to_html())
+            return json.dumps({'success':True, 'data': df}), 200, {'ContentType':'application/json'}
 
 
 @app.route("/")
@@ -105,6 +107,8 @@ def encodeData(path_of_csv, n):
         if(not isCategorical(df[i],n)): 
             to_remove.append(only_str.pop(only_str.index(i)))
 
+    print("----------------------------------")
+    print(only_str)
     df = df.drop(to_remove, axis = 1)
     column_trans_final = make_column_transformer((OneHotEncoder(handle_unknown='ignore'), only_str), remainder='passthrough')
     df = column_trans_final.fit_transform(df)

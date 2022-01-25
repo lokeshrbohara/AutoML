@@ -1,6 +1,7 @@
 import React from 'react'
 import { Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import './DataPreprocess.css';
 
 export default function DataPreprocess() {
     var df = "Hi";
@@ -38,10 +39,24 @@ export default function DataPreprocess() {
     };
     const setTable = () =>{
         console.log("HEREEEEEEEEEEEEEEEEE");
-        var tab = document.getElementsByClassName('dataframe')[0];
-        if(tab){
-            tab.style.width = "100%";
-        }
+        // var tab = document.getElementsByClassName('dataframe')[0];
+        // if(tab){
+        //     tab.style.width = "100%";
+        //     tab.style.textAlign = "center";
+        // }
+        // var th = document.getElementsByTagName('thead')[0];
+        // if(th){
+        //     th.style.align = "center";
+        // }
+        // if(tab){
+        //     tab.style.width = "100%";
+        //     tab.style.textAlign = "center";
+        // }
+
+        // console.log(tab.innerHTML);
+        // let tbody = [...document.getElementsByTagName("tr")];
+        // console.log(tbody.slice(0, 30));
+        // document.getElementsByTagName("tbody").innerHTML = tbody.slice(0,30);
     }
     return (
         <div>

@@ -38,7 +38,8 @@ def getDataset():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             print("saved file successfully")
             continuous_processed_path, categorical_processed_path, final_encoded_path = process_data(UPLOAD_FOLDER, filename)
-            data=pd.read_csv(final_encoded_path)
+            data=pd.read_csv(categorical_processed_path)
+            data=data.head(50)
             df = str(data.to_html())
             return json.dumps({'success':True, 'data': df}), 200, {'ContentType':'application/json'}
 

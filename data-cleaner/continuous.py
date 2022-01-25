@@ -85,8 +85,8 @@ def remove_outlier(DF, col_name):
     IQR = q3-q1 # Interquartile range
     print("Interquartile Range")
     print(IQR)
-    d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
-    return d
+    # d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
+    return DF
 
 
 def OutlierAnalysis(path):
@@ -113,16 +113,16 @@ def OutlierAnalysis(path):
     print("----------------------------")
     print("Data shape", data.shape)
     print("Copied Data shape", data2.shape)
-    lof = LocalOutlierFactor()
-    yhat = lof.fit_predict(data2.values)  # LOF outlier remover
-    mask = yhat != -1
-    DF = data[mask]
-    print("New Data shape", DF.shape)
+    # lof = LocalOutlierFactor()
+    # yhat = lof.fit_predict(data2.values)  # LOF outlier remover
+    # mask = yhat != -1
+    # DF = data[mask]
+    # print("New Data shape", DF.shape)
     
-    print("----------------------------")
-    dd = DF.copy()
-    dd = remove_outlier(DF, cols)  # Quartile outlier remover
-    data = Scaling(dd)  # Scaling Dataset
+    # print("----------------------------")
+    # dd = DF.copy()
+    # dd = remove_outlier(DF, cols)  # Quartile outlier remover
+    data = Scaling(data)  # Scaling Dataset
     dd = remove_outlier(data, cols)  # Removing outliers after scaling
     return dd
 

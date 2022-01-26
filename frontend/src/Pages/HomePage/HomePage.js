@@ -29,7 +29,7 @@ export default function HomePage() {
                     (() => {
                         const cards = [];
                         for(let i=0; i<Features; i++){
-                            cards.push(<HomeCards title={titles[i]} description={descriptions[i]} imgSrc={images[i]} />);
+                            cards.push(<HomeCards key={i} title={titles[i]} description={descriptions[i]} imgSrc={images[i]} />);
                         }
                         return cards;
                     })()

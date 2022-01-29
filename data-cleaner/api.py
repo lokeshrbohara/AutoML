@@ -8,8 +8,8 @@ import os
 import json
 
 
-UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
-# UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
+# UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
+UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
@@ -20,6 +20,7 @@ cors = CORS(app, resources={"/*": {"origins": "*"}})
 @cross_origin()
 def getDataset():
     print("INSIDEEEEEEEEEEEEEE")
+    print(request)
     if request.method == 'POST':
         print("request*****************************")
         if 'file' not in request.files:
@@ -41,6 +42,8 @@ def getDataset():
             data=pd.read_csv(final_encoded_path)
             df = str(data.to_html())
             return json.dumps({'success':True, 'data': df}), 200, {'ContentType':'application/json'}
+    else:
+        return json.dumps({'success':True, 'data': "Get Method"}), 200, {'ContentType':'application/json'}
 
 
 @app.route("/")
@@ -113,8 +116,10 @@ def encodeData(path_of_csv, n):
     column_trans_final = make_column_transformer((OneHotEncoder(handle_unknown='ignore'), only_str), remainder='passthrough')
     df = column_trans_final.fit_transform(df)
     df = pd.DataFrame(df)
-
+    print(column_trans_final.get_feature_names())
     df = df.dropna()
+    df.columns = column_trans_final.get_feature_names()
+    print(df)
     df.to_csv(path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv"), index=False)
 
     return path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv")

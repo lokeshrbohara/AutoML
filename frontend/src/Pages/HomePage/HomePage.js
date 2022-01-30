@@ -4,8 +4,17 @@ import datapreprocess from '../../assets/datapreprocess.png';
 import mod from '../../assets/mod.svg';
 // import model from '../../assets/model.png';
 import completeModel from '../../assets/completeModel.jpg';
+import { useHistory } from 'react-router-dom';
+
+import { useAuth } from '../../Components/Contexts/AuthContext';
 
 export default function HomePage() {
+    const { currentUser } = useAuth();
+    const history = useHistory();
+    // console.log(currentUser);
+    if( !currentUser ){
+        history.push("/signup");
+    }
     const Features = 3;
     const titles = [
         "Data Preprocessing",

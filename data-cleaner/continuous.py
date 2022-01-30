@@ -27,6 +27,23 @@ from sklearn.neighbors import LocalOutlierFactor
 import pandas as pd
 import glob
 import numpy as np
+import re
+
+
+def checkNumeric(num):
+    if num == num:
+        return True if re.search("[0-9]+.*[0-9]*", num) else False
+    else:
+        return False
+
+
+def convertToNumeric(data, col):
+    for k in range(len(data[col])):    
+        res=""
+        for i in data[col][k]:
+            res+=re.sub("[`~!@#$=+%^&*_/?()-]|[a-zA-Z]", "", i)
+        res=float(res)
+        data.loc[k, col] = res
 
 
 def CheckUnique(data):
@@ -54,8 +71,30 @@ def GetNumColumns(data):
     col_names = data.columns.to_list()
     final_col_names = col_names.copy()
     for i in col_names:
-        if str(data[i].dtypes) == "object":
-            final_col_names.remove(i)
+        if data.dtypes[i] == "float" or \
+            data.dtypes[i] == "int64" or \
+            data.dtypes[i] == "int32":
+            print("ALREADY NUMERIC:-", i)
+            continue
+        else:
+            c=0
+            ct=[]
+            ct.append(data[i][:50])
+            for j in ct[0]:
+                if checkNumeric(j):
+                    c=c+1
+            if c>40:
+                print("Numeric:-",i)
+                convertToNumeric(data, i)
+                print("Converted Values of", i)
+            else:
+                final_col_names.remove(i)
+                print("Not a Numeric:-",i)
+            print("-----------")
+    # for i in col_names:
+    #     if str(data[i].dtypes) == "object":
+    #         final_col_names.remove(i)
+    print("These are the final numeric columns", final_col_names)
     return final_col_names
 
 
@@ -85,12 +124,17 @@ def remove_outlier(DF, col_name):
     IQR = q3-q1 # Interquartile range
     print("Interquartile Range")
     print(IQR)
-    d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
-    return d
+    # d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
+    return DF
 
 
 def OutlierAnalysis(path):
     data = pd.read_csv(path)  # Reading dataset
+    print("----------------------------")
+    print("Original Dataset ")
+    print("----------------------------")
+    print(data)
+    print("----------------------------")
     col_name = CheckUnique(data)  # Removing unique columns
     data = data[col_name]  # Columns names which are not unique
     
@@ -107,26 +151,32 @@ def OutlierAnalysis(path):
     data[cols] = df4[cols]
 
     print("----------------------------")
-    print("Count of null values after removal in continuous attributes")
+    print("Count of null values AFTER removal in continuous attributes")
     print(data.isna().sum())
     data2 = data[cols]
     print("----------------------------")
     print("Data shape", data.shape)
     print("Copied Data shape", data2.shape)
-    lof = LocalOutlierFactor()
-    yhat = lof.fit_predict(data2.values)  # LOF outlier remover
-    mask = yhat != -1
-    DF = data[mask]
-    print("New Data shape", DF.shape)
+    # lof = LocalOutlierFactor()
+    # yhat = lof.fit_predict(data2.values)  # LOF outlier remover
+    # mask = yhat != -1
+    # DF = data[mask]
+    # print("New Data shape", DF.shape)
     
-    print("----------------------------")
-    dd = DF.copy()
-    dd = remove_outlier(DF, cols)  # Quartile outlier remover
-    data = Scaling(dd)  # Scaling Dataset
+    # print("----------------------------")
+    # dd = DF.copy()
+    # dd = remove_outlier(DF, cols)  # Quartile outlier remover
+    data = Scaling(data)  # Scaling Dataset
     dd = remove_outlier(data, cols)  # Removing outliers after scaling
     return dd
 
 
 def ContinuousPreProcess(path):
     final_data = OutlierAnalysis(path)
+    print("----------------------------")
+    print("Processed Dataset:")
+    print("----------------------------")
     return final_data
+
+# Test run
+# print(ContinuousPreProcess("D:\\Github Repositories\\AutoML\\data-cleaner\\notebooks\\updated_bike_buyers.csv"))

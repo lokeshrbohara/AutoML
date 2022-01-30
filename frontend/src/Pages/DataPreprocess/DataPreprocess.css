@@ -1,0 +1,18 @@
+.dataframe{
+    text-align:center;
+    width: 100%;
+    border: 2px;
+}
+thead{
+    text-align: justify;
+}
+tr{
+    height: 50px;
+    text-align: center !important;
+    font-family:Arial, Helvetica, sans-serif;
+}
+th{
+    width: 10px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}

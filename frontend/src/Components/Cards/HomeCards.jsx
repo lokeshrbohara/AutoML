@@ -1,6 +1,9 @@
 import { Card } from 'antd';
 import { EditOutlined, EllipsisOutlined, RightCircleOutlined } from '@ant-design/icons';
 import React from 'react';
+// import userLaptop from "../../assets/userLaptop.png";
+import minato from "../../assets/minato.gif";
+
 const { Meta } = Card;
 
 export default function HomeCards({title, description, imgSrc}) {
@@ -11,7 +14,7 @@ export default function HomeCards({title, description, imgSrc}) {
             cover={
                 <img
                     alt="example"
-                    src={imgSrc}
+                    src={imgSrc ? imgSrc: minato}
                     height="250px"
                     style={{"objectFit": "scale-down"}}
                 />
@@ -24,7 +27,7 @@ export default function HomeCards({title, description, imgSrc}) {
         >
             <Meta
                 title={title}
-                description={description}
+                description={description ? description : ""}
             />
         </Card>
     );

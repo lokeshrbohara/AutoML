@@ -1,0 +1,16 @@
+table {
+  width: fit-content;
+}
+table,
+th,
+td {
+  border: 5px solid rgb(255, 255, 255);
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+th,
+td {
+  background-color: #96d4d4;
+  padding: 10px;
+  width: fit-content;
+}

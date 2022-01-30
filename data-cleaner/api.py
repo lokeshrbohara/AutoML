@@ -4,17 +4,31 @@ from numpy.core.numeric import full_like
 from werkzeug.utils import secure_filename
 from categorical import *
 from continuous import *
+from dotenv import load_dotenv
 import os
 import json
+import pyrebase
+import time
 
-
-# UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
-UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
+load_dotenv()
+UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
+# UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+config = {
+    "apiKey": os.getenv('REACT_APP_API_KEY'),
+    "authDomain": os.getenv('REACT_APP_AUTH_DOMAIN'),
+    "projectId": os.getenv('REACT_APP_PROJECT_ID'),
+    "storageBucket": os.getenv('REACT_APP_STORAGE_BUCKET'),
+    "messagingSenderId": os.getenv('REACT_APP_MESSAGING_SENDER_ID'),
+    "appId": os.getenv('REACT_APP_APP_ID'),
+    "measurementId": os.getenv('REACT_APP_MEASUREMENT_ID'),
+    "databaseURL": os.getenv("REACT_APP_DATABASE_URL"),
+    "serviceAccount": "firebase-adminsdk.json",
+}
 
 @app.route("/upload", methods=['GET', 'POST'])
 @cross_origin()
@@ -40,11 +54,18 @@ def getDataset():
             print("saved file successfully")
             continuous_processed_path, categorical_processed_path, final_encoded_path = process_data(UPLOAD_FOLDER, filename)
             data=pd.read_csv(categorical_processed_path)
+
+            # Uploading dataset to firebase storage
+            firebase_storage = pyrebase.initialize_app(config)
+            storage = firebase_storage.storage()
+            fName = filename+str(int(time.time()))+".csv"
+            storage.child(fName).put(final_encoded_path)
+
             json_data = data.to_json()
             data=data.head(50)
             df = str(data.to_html())
-            print(data.to_json())
-            return json.dumps({'success':True, 'data': df, 'json_data': json_data }), 200, {'ContentType':'application/json'}
+            # print(data.to_json())
+            return json.dumps({'success':True, 'data': df, 'nameText': fName, 'json_data': json_data }), 200, {'ContentType':'application/json'}
     else:
         return json.dumps({'success':True, 'data': "Get Method"}), 200, {'ContentType':'application/json'}
 

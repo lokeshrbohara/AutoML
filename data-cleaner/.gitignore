@@ -8,3 +8,5 @@ Final_Data.csv
 Google_Stock_Price_Train.csv
 updated_bike_buyers.csv
 uploads/
+.env
+firebase-adminsdk.json

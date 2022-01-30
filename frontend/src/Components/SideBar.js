@@ -12,6 +12,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     UploadOutlined,
+    SettingOutlined
 } from '@ant-design/icons';
 
 import HomePage from '../Pages/HomePage/HomePage';
@@ -65,7 +66,7 @@ class SideBar extends React.Component {
                                     Complete Model
                                 </Link>
                             </Menu.Item>
-                            <Menu.Item key="5" icon={<UploadOutlined />}>
+                            <Menu.Item key="5" icon={<SettingOutlined />}>
                                 <Link to="/logout">
                                     Settings
                                 </Link>

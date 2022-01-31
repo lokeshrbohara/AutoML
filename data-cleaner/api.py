@@ -58,6 +58,9 @@ def getDataset():
             # Uploading dataset to firebase storage
             firebase_storage = pyrebase.initialize_app(config)
             storage = firebase_storage.storage()
+            # print(storage.list_files())
+            # for i in storage.list_files():
+            #     print(storage.child(i.name))
             fName = filename+str(int(time.time()))+".csv"
             storage.child(fName).put(final_encoded_path)
 

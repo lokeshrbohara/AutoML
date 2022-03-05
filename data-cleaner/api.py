@@ -1,9 +1,11 @@
 from flask import Flask, request, redirect
 from flask_cors import CORS, cross_origin
 from numpy.core.numeric import full_like
+from pymysql import NULL
 from werkzeug.utils import secure_filename
 from categorical import *
 from continuous import *
+from image import *
 from dotenv import load_dotenv
 import os
 import json
@@ -12,6 +14,7 @@ import time
 
 load_dotenv()
 UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
+IMAGE_UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner'
 # UPLOAD_FOLDER = 'C:\\Users\\91877\\Desktop\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
@@ -47,6 +50,29 @@ def getDataset():
             print('no filename')
             return redirect(request.url)
         else:
+            print("FILE NAME : ", file.filename)
+            # If image folder is uploaded
+            if file.filename[-4:] == ".zip":
+                filename = secure_filename(file.filename)
+                print("PATHHHH = ", os.getcwd())
+                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                print("saved file successfully")
+                imgPath = processImage(UPLOAD_FOLDER, filename)
+                print("Image path is equal to this: ", imgPath)
+
+                # Uploading dataset to firebase storage
+                firebase_storage = pyrebase.initialize_app(config)
+                storage = firebase_storage.storage()
+                # print(storage.list_files())
+                # for i in storage.list_files():
+                #     print(storage.child(i.name))
+                fName = filename+str(int(time.time()))+".zip"
+                storage.child(fName).put(IMAGE_UPLOAD_FOLDER+"\\"+imgPath)
+
+
+                # return json.dumps({'success':True, 'data': "Image zip was successfully uploaded"}), 200, {'ContentType':'application/json'}
+                return json.dumps({'success':True, 'data': None, 'ogFileName': file.filename, 'nameText': fName, 'json_data': None }), 200, {'ContentType':'application/json'}
+
             print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
             filename = secure_filename(file.filename)
             print("PATHHHH = ", os.getcwd())
@@ -68,7 +94,7 @@ def getDataset():
             data=data.head(50)
             df = str(data.to_html())
             # print(data.to_json())
-            return json.dumps({'success':True, 'data': df, 'nameText': fName, 'json_data': json_data }), 200, {'ContentType':'application/json'}
+            return json.dumps({'success':True, 'data': df, 'ogFileName': file.filename,  'nameText': fName, 'json_data': json_data }), 200, {'ContentType':'application/json'}
     else:
         return json.dumps({'success':True, 'data': "Get Method"}), 200, {'ContentType':'application/json'}
 

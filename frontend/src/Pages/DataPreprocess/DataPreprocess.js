@@ -46,31 +46,42 @@ export default function DataPreprocess() {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                // console.log(info.file.response.data);
-                console.log(info.file.response.nameText);
-                setShowDownload(true);
-                setDownloadLink(info.file.response.nameText);
-                set_df(info.file.response.data);
+                if(info.file.response.ogFileName.substr(info.file.response.ogFileName.length-4)){
+                    setShowDownload(true);
+                    const storage = getStorage();
+                    getDownloadURL(ref(storage, info.file.response.nameText))
+                        .then(url => {
+                            // console.log("url ", url);
+                            setDownloadLink(url);
+                        })
+                        .catch(err => console.log(err))
+                    message.success(`${info.file.response.ogFileName} file uploaded successfully`);
+                }else{                    
+                    console.log(info.file.response.nameText);
+                    setShowDownload(true);
+                    setDownloadLink(info.file.response.nameText);
+                    set_df(info.file.response.data);
 
-                const storage = getStorage();
-                getDownloadURL(ref(storage, info.file.response.nameText))
-                    .then(url => {
-                        console.log("url ", url);
-                        setDownloadLink(url);
-                    })
-                    .catch(err => console.log(err))
+                    const storage = getStorage();
+                    getDownloadURL(ref(storage, info.file.response.nameText))
+                        .then(url => {
+                            // console.log("url ", url);
+                            setDownloadLink(url);
+                        })
+                        .catch(err => console.log(err))
 
 
-                set_json_data(JSON.parse(info.file.response.json_data));
-                set_upload_success(true);
-                // console.log("__________________________________________________________________")
-                // console.log(Object.keys(JSON.parse(info.file.response.json_data)));
-                setColumns(info.file.response.json_data);
-                // piechartData(JSON.parse(info.file.response.json_data).Species)
+                    set_json_data(JSON.parse(info.file.response.json_data));
+                    set_upload_success(true);
+                    // console.log("__________________________________________________________________")
+                    // console.log(Object.keys(JSON.parse(info.file.response.json_data)));
+                    setColumns(info.file.response.json_data);
+                    // piechartData(JSON.parse(info.file.response.json_data).Species)
 
-                // console.log("++++++++++++++++++++++++++++++++");
-                setTable();
-                message.success(`${info.file.name} file uploaded successfully`);
+                    // console.log("++++++++++++++++++++++++++++++++");
+                    setTable();
+                    message.success(`${info.file.name} file uploaded successfully`);
+                }
             } else if (info.file.status === 'error') {
                 // console.log("NOOOOOOOOOOOOOOOOO");
                 message.error(`${info.file.name} file upload failed.`);
@@ -378,9 +389,12 @@ export default function DataPreprocess() {
             <h2>Data Preprocessing</h2>
             <p>Upload any dataset</p>
             <Upload {...props}>
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                <Button icon={<UploadOutlined />}>Upload Dataset</Button>
             </Upload>
-
+            {/* <p>Upload Image dataset</p>
+            <Upload {...props}>
+                <Button icon={<UploadOutlined />}>Upload <strong> ZIPPED </strong> Image Dataset</Button>
+            </Upload> */}
             {showDownload && downloadLink &&
                 <>
                     <Button

@@ -124,7 +124,7 @@ def remove_outlier(DF, col_name):
     IQR = q3-q1 # Interquartile range
     print("Interquartile Range")
     print(IQR)
-    # d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
+    d = DF[~((DF[col_name] < (q1 - 1.5 * IQR)) |(DF[col_name] > (q3 + 1.5 * IQR))).any(axis=1)]
     return DF
 
 

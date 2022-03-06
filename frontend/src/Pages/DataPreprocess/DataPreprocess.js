@@ -46,7 +46,7 @@ export default function DataPreprocess() {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                if(info.file.response.ogFileName.substr(info.file.response.ogFileName.length-4)){
+                if(info.file.response.ogFileName.substr(info.file.response.ogFileName.length-4) === ".zip"){
                     setShowDownload(true);
                     const storage = getStorage();
                     getDownloadURL(ref(storage, info.file.response.nameText))

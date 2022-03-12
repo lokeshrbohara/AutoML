@@ -13,8 +13,17 @@ import { Area } from '@antv/g2plot';
 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-
+import ReactToPdf from "react-to-pdf";
 import { Select } from 'antd';
+
+const pdfref = React.createRef();
+const userpdfref = React.createRef();
+
+const options = {
+    orientation: 'landscape',
+    unit: 'in'
+};
+
 const { Option } = Select;
 
 export default function DataPreprocess() {
@@ -22,6 +31,7 @@ export default function DataPreprocess() {
     const [json_data, set_json_data] = useState("");
     const [upload_success, set_upload_success] = useState(false);
     const [Visualize_data, set_visualize_data] = useState(false);
+    const [pdf_button, set_pdf_button] = useState(false);
     const [chart, set_chart] = useState("");
     const [columns, set_columns] = useState([]);
     const [XYvalue, set_xyvalue] = useState({ X: "", Y: "" });
@@ -46,8 +56,10 @@ export default function DataPreprocess() {
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                if(info.file.response.ogFileName.substr(info.file.response.ogFileName.length-4)){
+                console.log(info.file.response.ogFileName);
+                if(info.file.response.ogFileName.substr(info.file.response.ogFileName.length-4)===".zip"){
                     setShowDownload(true);
+                    console.log("DOneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                     const storage = getStorage();
                     getDownloadURL(ref(storage, info.file.response.nameText))
                         .then(url => {
@@ -55,6 +67,7 @@ export default function DataPreprocess() {
                             setDownloadLink(url);
                         })
                         .catch(err => console.log(err))
+
                     message.success(`${info.file.response.ogFileName} file uploaded successfully`);
                 }else{                    
                     console.log(info.file.response.nameText);
@@ -71,17 +84,20 @@ export default function DataPreprocess() {
                         .catch(err => console.log(err))
 
 
-                    set_json_data(JSON.parse(info.file.response.json_data));
-                    set_upload_success(true);
-                    // console.log("__________________________________________________________________")
-                    // console.log(Object.keys(JSON.parse(info.file.response.json_data)));
-                    setColumns(info.file.response.json_data);
-                    // piechartData(JSON.parse(info.file.response.json_data).Species)
-
-                    // console.log("++++++++++++++++++++++++++++++++");
-                    setTable();
+                        set_json_data(JSON.parse(info.file.response.json_data));
+                        console.log("Upload Success");
+                        set_upload_success(true);
+                        console.log("Upload Success");
+    
+                        // console.log("__________________________________________________________________")
+                        // console.log(Object.keys(JSON.parse(info.file.response.json_data)));
+                        setColumns(info.file.response.json_data);
+                        // piechartData(JSON.parse(info.file.response.json_data).Species)
+    
+                        // console.log("++++++++++++++++++++++++++++++++");
+                        setTable();
                     message.success(`${info.file.name} file uploaded successfully`);
-                }
+                    }
             } else if (info.file.status === 'error') {
                 // console.log("NOOOOOOOOOOOOOOOOO");
                 message.error(`${info.file.name} file upload failed.`);
@@ -134,6 +150,7 @@ export default function DataPreprocess() {
 
     const handleChange = (value) => {
         set_chart(value);
+        set_pdf_button(true);
         // console.log(`selected ${value}`);
     }
 
@@ -459,10 +476,34 @@ export default function DataPreprocess() {
                 </>
             }
 
+            
+            
+            <div ref={userpdfref} id="user_charts" style={{ margin: "10%" }}></div>
+            {Visualize_data && pdf_button &&
+                <>
+                
+                <ReactToPdf targetRef={userpdfref} filename="User Charts.pdf" options={options} x={1} y={2}>
+                    {({toPdf}) => (
+                        <Button onClick={toPdf}>Generate pdf</Button>
+                    )}
+                </ReactToPdf>
+                </>
+            }
 
-            <div id="user_charts" style={{ margin: "10%" }}></div>
-            <div id="charts"></div>
-
+            <div ref={pdfref} id="charts"></div>
+            {Visualize_data &&
+                <>
+                
+                <ReactToPdf targetRef={pdfref} filename="Default Charts.pdf" options={options} y={2}>
+                    {({toPdf}) => (
+                        <Button onClick={toPdf}>Generate pdf</Button>
+                    )}
+                </ReactToPdf>
+                </>
+            }
+            
+            
+            
         </div>
     )
 }

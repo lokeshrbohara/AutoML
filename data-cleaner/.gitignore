@@ -11,4 +11,7 @@ uploads/
 .env
 firebase-adminsdk.json
 a.json
+config.json
+settings.json
 automl
+evalml_debug.log

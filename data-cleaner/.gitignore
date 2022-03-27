@@ -12,3 +12,4 @@ uploads/
 firebase-adminsdk.json
 a.json
 automl
+__pycache__

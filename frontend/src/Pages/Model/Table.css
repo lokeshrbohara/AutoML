@@ -4,6 +4,8 @@
 }
 table {
   width: fit-content;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 table,
 th,
@@ -14,7 +16,7 @@ td {
 }
 th,
 td {
-  background-color: #96d4d4;
+  background-color: #f7fbff;
   padding: 10px;
   width: max-content;
 }

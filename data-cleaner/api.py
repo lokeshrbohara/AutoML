@@ -1,4 +1,5 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect,jsonify
+from flask_mail import Mail,Message
 from flask_cors import CORS, cross_origin
 from numpy.core.numeric import full_like
 from pymysql import NULL
@@ -11,12 +12,37 @@ import os
 import json
 import pyrebase
 import time
+import numpy as np
+import pickle
+
+import pandas as pd
+import evalml
+from evalml.automl import AutoMLSearch
+# import pyrebase
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_classif
+from matplotlib import pyplot
+from sklearn.preprocessing import StandardScaler 
+from sklearn.svm import SVC 
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import cross_val_score 
+
+
 
 load_dotenv()
 UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
 IMAGE_UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner'
 # IMAGE_UPLOAD_FOLDER = 'D:\\AutoML\\data-cleaner'
 # UPLOAD_FOLDER = 'D:\\AutoML\\data-cleaner\\uploads'
+# IMAGE_UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner'
+# UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})
@@ -33,6 +59,20 @@ config = {
     "databaseURL": os.getenv("REACT_APP_DATABASE_URL"),
     "serviceAccount": "firebase-adminsdk.json",
 }
+
+with open('config.json', 'r') as c:
+    params = json.load(c)["params"]
+
+
+app.config.update(
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = '465',
+    MAIL_USE_SSL = True,
+    MAIL_USERNAME = params['gmail-user'],
+    MAIL_PASSWORD=  params['gmail-password']
+)
+mail = Mail(app)
+
 
 @app.route("/upload", methods=['GET', 'POST'])
 @cross_origin()
@@ -58,7 +98,7 @@ def getDataset():
                 print("PATHHHH = ", os.getcwd())
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
                 print("saved file successfully")
-                imgPath = processImage(UPLOAD_FOLDER, filename)
+                imgPath, displayImages = processImage(UPLOAD_FOLDER, filename)
                 print("Image path is equal to this: ", imgPath)
 
                 # Uploading dataset to firebase storage
@@ -67,12 +107,13 @@ def getDataset():
                 # print(storage.list_files())
                 # for i in storage.list_files():
                 #     print(storage.child(i.name))
+                print("Storing in firebase")
                 fName = filename+str(int(time.time()))+".zip"
                 storage.child(fName).put(IMAGE_UPLOAD_FOLDER+"\\"+imgPath)
-
-
+                print("Stored in firebase")
+                # numpyData = {"array": displayImages}
                 # return json.dumps({'success':True, 'data': "Image zip was successfully uploaded"}), 200, {'ContentType':'application/json'}
-                return json.dumps({'success':True, 'data': None, 'ogFileName': file.filename, 'nameText': fName, 'json_data': None }), 200, {'ContentType':'application/json'}
+                return json.dumps({'success':True, 'data': None, 'displayImages': json.dumps(displayImages), 'ogFileName': file.filename, 'nameText': fName, 'json_data': None }), 200, {'ContentType':'application/json'}
 
             print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
             filename = secure_filename(file.filename)
@@ -117,7 +158,7 @@ def process_data(path, filename):
     categorical_processed_path, n = process_categorical(path+"\\"+filename.replace(".csv", "")+"_Continuous_Processed.csv", filename)
     print("Done Preprocessing Categorical")
     final_encoded_path = encodeData(categorical_processed_path, n)
-    print("File Encoded")
+    print("File Encoded") 
 
     return (continuous_processed_path, categorical_processed_path, final_encoded_path)
 
@@ -178,5 +219,300 @@ def encodeData(path_of_csv, n):
 
     return path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv")
 
+
+@app.route('/uploadBuilder', methods=['POST'])
+def onUploadBuilder():
+    response="No file received"
+    if request.method=='POST':
+        f=request.files.get('File')      
+        df=pd.read_csv(f)
+        problem_type=request.form['problem_type']
+        filteredRows=request.form['rows'].split(",")
+        filteredCols=request.form['cols'].split(",")
+        outputcol=int(request.form['outputcol'])
+        useremail=request.form['useremail']
+        username=useremail.split("@")[0]
+        
+        # converting boolean lists to numbers
+        filteredRowsLst=[]
+        filteredColsLst=[]
+        for i in range(len(filteredRows)):
+            if(filteredRows[i]=="true"): filteredRowsLst.append(i)
+        for i in range(len(filteredCols)):
+            if(filteredCols[i]=="true"): filteredColsLst.append(i)
+
+
+        if(problem_type=="regression"):
+            cat = df.select_dtypes(include='O').keys()
+            lenc=len(cat)
+            new_df = df[cat].copy()
+            cat_columns=[]
+            # column name and unique values in each column
+            for x in new_df.columns:
+                for i in range(lenc):
+                    list_col=[]
+                    list_col.append(x)
+                    list_col.append(len(new_df[x].unique()))
+                cat_columns.append(list_col)
+            column_name=[]
+            for i in range(lenc):
+                column_name.append(cat_columns[i][0])
+            #number of times value occurs
+            column_number=[]
+            for i in range(lenc):
+                column_number.append(cat_columns[i][1])
+            column_values=[]
+            for i in range(lenc):
+                for j in range(column_number[i]):
+                    column_values=df[column_name[i]].unique()
+                    for k in range(column_number[i]):
+                        df[column_name[i]].replace({column_values[k]: k}, inplace=True)
+        
+        X=df.iloc[filteredRowsLst,filteredColsLst]
+        Y=df.iloc[filteredRowsLst,outputcol]
+        
+        customOutput=("algo",0.0,"")
+        resMsg=""
+        if(problem_type=="binary" or problem_type=="multiclass"):
+            customOutput=getClassificationCustomModel(X,Y)
+        else:
+            customOutput=getRegressionCustomModel(X,Y)
+        libraryOutput=getBestModel(X,Y,problem_type)
+        # uploadToFirebase(libraryOutput[2],useremail)
+        if(libraryOutput[1]>customOutput[1]):
+            libraryOutput[2].save(username+'.pkl')
+            resMsg="Selected "+libraryOutput[0]+" algorithm with accuracy "+'%0.2f'%(libraryOutput[1]*100)+"%"
+            
+        else:
+            resMsg="Selected "+customOutput[0]+" algorithm with accuracy "+'%0.2f'%(customOutput[1]*100)+"%"
+            pickle.dump(customOutput[2], open(username+'.pkl', 'wb'))
+        inputColumns=[]
+        for s in X.columns:
+            inputColumns.append('"'+s+'"')
+        inputColumns=",".join(inputColumns)
+        inputColumns="["+inputColumns+"]"
+        inputColsDtypes=[]
+        for s in list(map(str,list(X.dtypes))):
+            inputColsDtypes.append('"'+s+'"')
+
+        inputColsDtypes=",".join(inputColsDtypes)
+        inputColsDtypes="["+inputColsDtypes+"]"
+        f = open(username+".py", "w")
+        f.write("""import tkinter as tk
+from tkinter import *
+import pickle
+import evalml
+import pandas as pd
+import numpy as np
+import os
+
+from tkinter import *
+window=Tk()
+# add widgets here
+
+input_var=tk.StringVar()
+input_label = tk.Label(window, text = 'Enter values separated by "," \\n """+inputColumns+"""', font=('calibre',10, 'bold'))
+input_entry = tk.Entry(window,textvariable = input_var, font=('calibre',10,'normal'),justify="center",width=50)
+output_label =tk.Label(window,text="",font=('calibre',10, 'bold'))
+
+def browse_file():
+    global df
+    import_file_path = filedialog.askopenfilename(initialdir = os.getcwd(),filetypes=[("csv files","*.csv")])
+    read_file = pd.read_csv (import_file_path)
+    df = pd.DataFrame(read_file) 
+    getMultipleOutput()
+
+def getOutput():
+    with open('"""+username+""".pkl' , 'rb') as f:
+        model = pickle.load(f)
+    temp=input_var.get().split(",")
+    data=[]
+    input_var.set("")
+    datatypes="""+inputColsDtypes+"""
+    for j in range(len(datatypes)):
+        if(datatypes[j]=="int64"):
+            data.append(int(temp[j]))
+        elif(datatypes[j]=="float64"):
+            data.append(float(temp[j]))
+        else:
+            data.append(temp[j])
+    data=[data]
+    X = pd.DataFrame(data, columns ="""+inputColumns+""")
+    output_label['text']=model.predict(X).iloc[0]
+
+def getMultipleOutput():
+    with open("model.pkl" , 'rb') as f:
+        model = pickle.load(f)
+    X = pd.DataFrame(df, columns =["cylinders","displacement","horsepower","weight","acceleration","model year","origin"])
+    Y=model.predict(X)
+    df['OUTPUT']=Y.to_series()
+    print(df.head())
+    writer = pd.ExcelWriter('demo.xlsx', engine='xlsxwriter')
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+    writer.save()
+
+
+
+
+button_singleInput = tk.Button(window, text ="Submit", command=getOutput)
+
+button_multipleInput = tk.Button(window, text ="Upload Exelsheet", command=browse_file)
+
+window.title('Sample Usage')
+window.geometry("600x300+10+20")
+input_label.grid(row=0,column=0,pady=10)
+input_entry.grid(row=1,column=0,pady=10)
+button_singleInput.grid(row=2,column=0,pady=10)
+output_label.grid(row=3,column=0,pady=10)
+button_multipleInput.grid(row=4,column=0,pady=10)
+
+window.mainloop()""")
+        f.close()
+        msg = Message("Here's Your Machine Learning Model!",sender="prithvirajpatil2511@gmail.com",recipients=[useremail])
+
+        with app.open_resource(username+".pkl") as fp:
+            msg.attach(username+".pkl", username+"/pkl", fp.read())
+        
+        with app.open_resource(username+".py") as fp:
+            msg.attach(username+".py", username+"/py", fp.read())
+        print("Mail bhej diya hai")
+        mail.send(msg)
+        os.remove(username+".py")
+        os.remove(username+".pkl")
+        response = jsonify(message=resMsg)
+    return response
+
+
+
+
+def getClassificationCustomModel(X,Y):
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=1)
+    sc = StandardScaler() 
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+    classifier1 = SVC(kernel = 'rbf', random_state = 0) 
+    classifier1.fit(X_train, y_train) 
+    classifier2 = LogisticRegression(random_state = 0)
+    classifier2.fit(X_train, y_train)
+    classifier3 = DecisionTreeClassifier(criterion='entropy', random_state=0)
+    classifier3.fit(X_train, y_train)
+    classifier4 = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+    classifier4.fit(X_train, y_train)
+    accuracies1 = cross_val_score(estimator = classifier1, X = X_train, y = y_train, cv = 10) 
+    Mean1=accuracies1.mean() 
+    accuracies2 = cross_val_score(estimator = classifier2, X = X_train, y = y_train, cv = 10) 
+    Mean2=accuracies2.mean() 
+    accuracies3 = cross_val_score(estimator = classifier3, X = X_train, y = y_train, cv = 10) 
+    Mean3=accuracies3.mean() 
+    accuracies4 = cross_val_score(estimator = classifier4, X = X_train, y = y_train, cv = 10) 
+    Mean4=accuracies4.mean() 
+    Final=max(Mean1,Mean2,Mean3,Mean4)
+    FinalClassifier=""
+    if(Final==Mean1):
+        FinalClassifier=classifier1
+        y_pred = classifier1.predict(X_test)
+        algo="Support Vector Classification"
+    elif(Final==Mean2):
+        FinalClassifier=classifier2
+        algo="Logistic Regression"
+        y_pred = classifier2.predict(X_test)
+    elif(Final==Mean3):
+        FinalClassifier=classifier3
+        algo="Decision Tree"
+        y_pred = classifier3.predict(X_test)
+    else:
+        FinalClassifier=classifier4
+        algo="Random Forest"
+        y_pred = classifier4.predict(X_test)
+    print(algo,Final)
+    return(algo,Final,FinalClassifier)
+    
+def getRegressionCustomModel(X,Y):
+    print("------------------------------------------------------")
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=1)
+    sc = StandardScaler() 
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
+    regressor1 = LinearRegression() 
+    regressor1.fit(np.array(X_train), y_train)  
+    regressor2 = RandomForestRegressor(random_state = 0)
+    regressor2.fit(np.array(X_train), y_train) 
+    regressor3 = SVR(kernel='rbf')
+    regressor3.fit(np.array(X_train), y_train) 
+    regressor4 = DecisionTreeRegressor(random_state = 0) 
+    regressor4.fit(np.array(X_train), y_train) 
+
+    accuracies1 = cross_val_score(estimator = regressor1, X = X_train, y = y_train, cv = 10) 
+    Mean1=accuracies1.mean() 
+    accuracies2 = cross_val_score(estimator = regressor2, X = X_train, y = y_train, cv = 10) 
+    Mean2=accuracies2.mean() 
+    accuracies3 = cross_val_score(estimator = regressor3, X = X_train, y = y_train, cv = 10) 
+    Mean3=accuracies3.mean()
+    accuracies4 = cross_val_score(estimator = regressor4, X = X_train, y = y_train, cv = 10) 
+    Mean4=accuracies4.mean()  
+    Final=max(Mean1,Mean2,Mean3,Mean4)
+    FinalRegressor=""
+    if(Final==Mean1):
+        FinalRegressor=regressor1
+        y_pred = regressor1.predict(np.array(X_test)) 
+        algo="LinearRegression"
+    elif(Final==Mean2):
+        FinalRegressor=regressor2
+        algo="Random Forest Regression"
+        y_pred1 = regressor2.predict(np.array(X_test)) 
+    elif(Final==Mean3):
+        FinalRegressor=regressor3
+        algo="Support Vector Regression"
+        y_pred1 = regressor3.predict(np.array(X_test)) 
+    else:
+        FinalRegressor=regressor4
+        algo="Decision Tree Regression"
+        y_pred1 = regressor4.predict(np.array(X_test)) 
+    print(algo,Final)
+    return(algo,Final,FinalRegressor)
+
+
+def getBestModel(X,Y,problem_type):
+    X_train,X_test,y_train,y_test=evalml.preprocessing.split_data(X,Y,problem_type=problem_type)
+    automl = AutoMLSearch(X_train=X, y_train=Y, problem_type=problem_type,optimize_thresholds=True)
+    automl.search()
+    best_pipeline=automl.best_pipeline
+    if(problem_type=="regression"):
+        finalScore=best_pipeline.score(X_test, y_test,  objectives=["R2"])
+        print(finalScore)
+        return (best_pipeline.name,finalScore["R2"],best_pipeline)
+    elif(problem_type=="binary"):
+        finalScore=best_pipeline.score(X_test, y_test,  objectives=["auc"])
+        print(finalScore)
+        return (best_pipeline.name,finalScore['AUC'],best_pipeline)
+    else:
+        finalScore=best_pipeline.score(X_test, y_test,objectives=["Accuracy Multiclass"])
+        print(finalScore)
+        return (best_pipeline.name,finalScore['Accuracy Multiclass'],best_pipeline)
+    
+    
+
+
+# def uploadToFirebase(best_pipeline,useremail):
+#     config={
+#         "apiKey": "AIzaSyDg7ZaiX-TR23QbfMeHY1Ig5mPV_AQp3UI",
+#         "authDomain": "automl-16092.firebaseapp.com",
+#         "databaseURL": "https://automl-16092.firebaseapp.com",
+#         "projectId": "automl-16092",
+#         "storageBucket": "automl-16092.appspot.com",
+#         "messagingSenderId": "165718849723",
+#         "appId": "1:165718849723:web:37124bd74ef006ec27919e",
+#         "measurementId": "G-04XQHTMDEB"
+#     }
+#     firebase=pyrebase.initialize_app(config)
+#     storage=firebase.storage()
+#     path_on_cloud="models/"+useremail+".pkl"
+#     storage.child(path_on_cloud).put(best_pipeline.save(useremail+'.pkl'))
+    
+
+
+
+
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()

@@ -26,6 +26,7 @@ export default function Login() {
             setError('');
             setLoading(true);
 
+            // eslint-disable-next-line no-unused-vars
             const done = await Login(emailRef.current.value, passwordRef.current.value);
             // console.log(done);
 

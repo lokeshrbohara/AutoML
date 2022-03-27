@@ -26,6 +26,7 @@ export default function SignUp() {
         try {
             setError('');
             setLoading(true);
+            // eslint-disable-next-line no-unused-vars
             const done = await SignUp(emailRef.current.value, passwordRef.current.value);
             // console.log(done);
             history.push("/");

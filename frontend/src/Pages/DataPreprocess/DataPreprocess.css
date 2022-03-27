@@ -2,6 +2,9 @@
     text-align:center;
     width: 100%;
     border: 2px;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: block;
 }
 thead{
     text-align: justify;
@@ -9,7 +12,7 @@ thead{
 tr{
     height: 50px;
     text-align: center !important;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif !important;;
 }
 th{
     width: 10px;

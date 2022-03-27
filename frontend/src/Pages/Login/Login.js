@@ -26,6 +26,7 @@ export default function Login() {
             setError('');
             setLoading(true);
 
+            // eslint-disable-next-line no-unused-vars
             const done = await Login(emailRef.current.value, passwordRef.current.value);
             // console.log(done);
 
@@ -63,14 +64,14 @@ export default function Login() {
                         style={{ width: "350px" }}
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
-                        <input type="email" required ref={emailRef} value />
+                        <input type="email" style={{borderColor: "black", width: "20em"}} required ref={emailRef} value />
                     </Form.Item>
                     <Form.Item
                         label="Password"
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
-                        <input type="password" autoComplete='on' required ref={passwordRef} value />
+                        <input type="password" style={{borderColor: "black", width: "20em"}} autoComplete='on' required ref={passwordRef} value />
                     </Form.Item>
                     <Button disabled={loading} type="primary" htmlType="submit" >
                         Login

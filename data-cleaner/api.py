@@ -231,8 +231,8 @@ def onUploadBuilder():
         filteredCols=request.form['cols'].split(",")
         outputcol=int(request.form['outputcol'])
         useremail=request.form['useremail']
-        username=useremail.split("@")[0]
-        
+        username=useremail.split("@")[0].split(".")[0]
+        print(useremail.split("@")[0].split(".")[0])
         # converting boolean lists to numbers
         filteredRowsLst=[]
         filteredColsLst=[]
@@ -298,7 +298,8 @@ def onUploadBuilder():
         inputColsDtypes=",".join(inputColsDtypes)
         inputColsDtypes="["+inputColsDtypes+"]"
         f = open(username+".py", "w")
-        f.write("""import tkinter as tk
+        f.write("""
+from tkinter import filedialog
 from tkinter import *
 import pickle
 import evalml
@@ -306,14 +307,23 @@ import pandas as pd
 import numpy as np
 import os
 
-from tkinter import *
 window=Tk()
-# add widgets here
 
-input_var=tk.StringVar()
-input_label = tk.Label(window, text = 'Enter values separated by "," \\n """+inputColumns+"""', font=('calibre',10, 'bold'))
-input_entry = tk.Entry(window,textvariable = input_var, font=('calibre',10,'normal'),justify="center",width=50)
-output_label =tk.Label(window,text="",font=('calibre',10, 'bold'))
+input_var=StringVar()
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+input_label = Label(row, text = 'Enter values separated by "," \\n """+inputColumns+"""', font=('calibre',10, 'bold'),wraplength=500)
+input_label.pack()
+
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 10 , pady = 5)
+input_entry = Entry(window,textvariable = input_var, font=('calibre',10,'normal'),justify="center",width=50)
+input_entry.pack(fill = X,padx=10)
+
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+output_label =Label(window,text="",font=('calibre',10, 'bold'))
+output_label.pack()  
 
 def browse_file():
     global df
@@ -341,9 +351,9 @@ def getOutput():
     output_label['text']=model.predict(X).iloc[0]
 
 def getMultipleOutput():
-    with open("model.pkl" , 'rb') as f:
+    with open('"""+username+""".pkl' , 'rb') as f:
         model = pickle.load(f)
-    X = pd.DataFrame(df, columns =["cylinders","displacement","horsepower","weight","acceleration","model year","origin"])
+    X = pd.DataFrame(df, columns ="""+inputColumns+""")
     Y=model.predict(X)
     df['OUTPUT']=Y.to_series()
     print(df.head())
@@ -354,17 +364,18 @@ def getMultipleOutput():
 
 
 
-button_singleInput = tk.Button(window, text ="Submit", command=getOutput)
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+button_singleInput = Button(window, text ="Submit", command=getOutput)
+button_singleInput.pack(padx = 5, pady = 5)
 
-button_multipleInput = tk.Button(window, text ="Upload Exelsheet", command=browse_file)
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+button_multipleInput = Button(window, text ="Upload Exelsheet", command=browse_file)
+button_multipleInput.pack(padx=5,pady=5)
 
 window.title('Sample Usage')
-window.geometry("600x300+10+20")
-input_label.grid(row=0,column=0,pady=10)
-input_entry.grid(row=1,column=0,pady=10)
-button_singleInput.grid(row=2,column=0,pady=10)
-output_label.grid(row=3,column=0,pady=10)
-button_multipleInput.grid(row=4,column=0,pady=10)
+window.geometry("600x400+10+20")
 
 window.mainloop()""")
         f.close()

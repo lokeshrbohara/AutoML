@@ -137,12 +137,13 @@ export default function Model() {
     formData.append("cols", colStatus);
     formData.append("outputcol", outputCol);
     formData.append("useremail", userEmail);
-    fetch("/upload", {
+    fetch("/uploadBuilder", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result);
         setsuccessRes(result.message);
         setisBusy(false);
       })

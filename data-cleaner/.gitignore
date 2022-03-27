@@ -13,3 +13,7 @@ firebase-adminsdk.json
 a.json
 automl
 __pycache__
+config.json
+settings.json
+automl
+evalml_debug.log

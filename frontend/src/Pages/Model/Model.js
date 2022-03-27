@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import {
   Button,
@@ -90,7 +91,7 @@ export default function Model() {
 
   const checkInputOutputNotSame = () => {
     for (let i = 0; i < colStatus.length; i++) {
-      if (colStatus[i] == true && i == outputCol) {
+      if (colStatus[i] === true && i === outputCol) {
         openNotification("Output column should not be input column");
         isCorrectForm = false;
       }
@@ -100,7 +101,7 @@ export default function Model() {
   const checkInputSelected = () => {
     let cntr = 0;
     for (let i = 0; i < colStatus.length; i++) {
-      if (colStatus[i] == true) {
+      if (colStatus[i] === true) {
         cntr++;
       }
     }
@@ -243,7 +244,7 @@ export default function Model() {
                 type="info"
               />
             )}
-            {successRes.length != 0 && (
+            {successRes.length !== 0 && (
               <Alert message={successRes} type="info" />
             )}
           </div>

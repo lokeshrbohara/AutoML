@@ -1,3 +1,4 @@
+from dis import dis
 from zipfile import ZipFile, ZIP_DEFLATED
 import os
 import numpy as np
@@ -5,6 +6,10 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import cv2
 import glob
+import json
+import base64
+
+from pyLDAvis import display
 
 def UnzipFolder(folder_path, user):
     with ZipFile(folder_path+"\\"+user, 'r') as zipObj:
@@ -29,10 +34,26 @@ def ImageProcess(folder_path, user):
     # Store images in array form
     img_size = 224
     files = []
+    ct = 0
+    displayImages = []
+    print("---!!!!!---*********----!!!----")
     for i in class_names[user]:
+        print("-----------*********------------")
+        print(i)
+        print(folder_path+"\\"+user+"\\"+i+"\\*.*")
         images = []
-        for img in glob.glob(folder_path+user+"/"+i+"/*.*"):
+        for img in glob.glob(folder_path+"\\"+user+"\\"+i+"\\*.*"):
+            # print("img printing %^#@^&*#@*")
+            # print(img)
             img_arr = cv2.imread(img)[...,::-1]
+            # print("here")
+            if ct < 5:
+                data = {}
+                with open(img, mode='rb') as file:
+                    img = file.read()
+                data["img"] = base64.encodebytes(img).decode('utf-8')
+                displayImages.append(json.dumps(data))
+                ct += 1
             img_arr = cv2.resize(img_arr, (img_size, img_size))
 
             if(img_arr.shape[2] == 3):  # if image is colored (RGB)
@@ -45,7 +66,10 @@ def ImageProcess(folder_path, user):
         images = np.array(images)
         np.save(i, images)
         files.append(i+'.npy')
-    return files
+    print("PRINTING IMAGES ARRAY")
+    print(displayImages)
+    print("PRINTING IMAGES ARRAY")
+    return (files, displayImages)
 
 
 def CheckZip(folder_path, user):
@@ -53,13 +77,13 @@ def CheckZip(folder_path, user):
         user = UnzipFolder(folder_path, user)
         print(f'{user} unzipped')
     print(folder_path, "_________"+ user)
-    class_names=ImageProcess(folder_path, user)
+    class_names, displayImages = ImageProcess(folder_path, user)
     pth = user+'.zip'
     with ZipFile(user+'.zip', 'w') as zipF:
         for file in class_names:
             zipF.write(file, compress_type=ZIP_DEFLATED)
     print('Final zip file saved')
-    return pth
+    return (pth, displayImages)
 
 
 def processImage(UPLOAD_FOLDER, filename):
@@ -67,5 +91,6 @@ def processImage(UPLOAD_FOLDER, filename):
     user = filename
     print("-----------------------------------------------")
     print(folder_path, "++++++++++", user)
-    path = CheckZip(folder_path, user)
-    return path
+    path, displayImages = CheckZip(folder_path, user)
+    return (path, displayImages)
+ 

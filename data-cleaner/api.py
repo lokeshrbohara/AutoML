@@ -98,7 +98,7 @@ def getDataset():
                 print("PATHHHH = ", os.getcwd())
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
                 print("saved file successfully")
-                imgPath = processImage(UPLOAD_FOLDER, filename)
+                imgPath, displayImages = processImage(UPLOAD_FOLDER, filename)
                 print("Image path is equal to this: ", imgPath)
 
                 # Uploading dataset to firebase storage
@@ -107,12 +107,13 @@ def getDataset():
                 # print(storage.list_files())
                 # for i in storage.list_files():
                 #     print(storage.child(i.name))
+                print("Storing in firebase")
                 fName = filename+str(int(time.time()))+".zip"
                 storage.child(fName).put(IMAGE_UPLOAD_FOLDER+"\\"+imgPath)
-
-
+                print("Stored in firebase")
+                # numpyData = {"array": displayImages}
                 # return json.dumps({'success':True, 'data': "Image zip was successfully uploaded"}), 200, {'ContentType':'application/json'}
-                return json.dumps({'success':True, 'data': None, 'ogFileName': file.filename, 'nameText': fName, 'json_data': None }), 200, {'ContentType':'application/json'}
+                return json.dumps({'success':True, 'data': None, 'displayImages': json.dumps(displayImages), 'ogFileName': file.filename, 'nameText': fName, 'json_data': None }), 200, {'ContentType':'application/json'}
 
             print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
             filename = secure_filename(file.filename)
@@ -157,7 +158,7 @@ def process_data(path, filename):
     categorical_processed_path, n = process_categorical(path+"\\"+filename.replace(".csv", "")+"_Continuous_Processed.csv", filename)
     print("Done Preprocessing Categorical")
     final_encoded_path = encodeData(categorical_processed_path, n)
-    print("File Encoded")
+    print("File Encoded") 
 
     return (continuous_processed_path, categorical_processed_path, final_encoded_path)
 

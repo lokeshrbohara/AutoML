@@ -196,6 +196,16 @@ export default function DataPreprocess() {
                 lineWidth: 1,
                 fill: '#5B8FF9',
             },
+            xAxis:{
+                title:{
+                  text:XYvalue.X
+                }
+            },
+            yAxis:{
+                title:{
+                  text:XYvalue.Y
+                }
+            },
             regressionLine: {
                 type: 'quad', // linear, exp, loess, log, poly, pow, quad
             },
@@ -217,7 +227,16 @@ export default function DataPreprocess() {
             data,
             xField: XYvalue.X,
             yField: XYvalue.Y,
-
+            xAxis:{
+                title:{
+                  text:XYvalue.X
+                }
+            },
+            yAxis:{
+                title:{
+                  text:XYvalue.Y
+                }
+            },
             minBarWidth: 20,
             maxBarWidth: 20,
         });
@@ -242,7 +261,15 @@ export default function DataPreprocess() {
             yField: XYvalue.Y,
             xAxis: {
                 // type: 'timeCat',
+                title:{
+                    text:XYvalue.X
+                },
                 tickCount: 5,
+            },
+            yAxis:{
+                title:{
+                  text:XYvalue.Y
+                }
             },
             smooth: true,
         });
@@ -265,6 +292,11 @@ export default function DataPreprocess() {
             data,
             xField: XYvalue.X,
             yField: XYvalue.Y,
+            yAxis:{
+                title:{
+                  text:XYvalue.Y
+                }
+            },
             label: {
 
                 position: 'middle', // 'top', 'bottom', 'middle',
@@ -274,6 +306,9 @@ export default function DataPreprocess() {
                 },
             },
             xAxis: {
+                title:{
+                    text:XYvalue.X
+                },
                 label: {
                     autoHide: true,
                     autoRotate: false,
@@ -304,7 +339,15 @@ export default function DataPreprocess() {
             yField: XYvalue.Y,
             xAxis: {
                 range: [0, 1],
+                title:{
+                  text:XYvalue.X
+                }
             },
+            yAxis:{
+                title:{
+                  text:XYvalue.Y
+                }
+            }
         });
         area.render();
 

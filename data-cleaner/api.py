@@ -1,3 +1,4 @@
+from traceback import print_tb
 from flask import Flask, request, redirect,jsonify
 from flask_mail import Mail,Message
 from flask_cors import CORS, cross_origin
@@ -197,9 +198,20 @@ def encodeData(path_of_csv, n):
     only_str = []
     to_remove = []
     n = len(df.index)
-    for i in range(len(df.columns)):
+    print("====================")
+    print("====================")
+    print(df.columns)
+    print("====================")
+    print("====================")
+    for i in range(len(df.columns)-1):
         if(type(df[df.columns[i]].iloc[0]) == str):
             only_str.append(df.columns[i])
+
+    print("====================")
+    print("====================")
+    print(only_str)
+    print("====================")
+    print("====================")
 
     for i in only_str:
         if(not isCategorical(df[i],n)): 
@@ -207,14 +219,17 @@ def encodeData(path_of_csv, n):
 
     print("----------------------------------")
     print(only_str)
-    df = df.drop(to_remove, axis = 1)
+
+    to_remove.append(df.columns[-1])
+
+    # df = df.drop(to_remove, axis = 1)
     column_trans_final = make_column_transformer((OneHotEncoder(handle_unknown='ignore'), only_str), remainder='passthrough')
     df = column_trans_final.fit_transform(df)
     df = pd.DataFrame(df)
     print(column_trans_final.get_feature_names())
     df = df.dropna()
     df.columns = column_trans_final.get_feature_names()
-    print(df)
+    # print(df)
     df.to_csv(path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv"), index=False)
 
     return path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv")

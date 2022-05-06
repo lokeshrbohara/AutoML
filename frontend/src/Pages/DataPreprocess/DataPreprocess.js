@@ -112,7 +112,8 @@ export default function DataPreprocess() {
 
                     message.success(`${info.file.response.ogFileName} file uploaded successfully`);
                 }
-                else{                    
+                else{
+                    setShowImage(false);                    
                     console.log(info.file.response.nameText);
                     setShowDownload(true);
                     setDownloadLink(info.file.response.nameText);

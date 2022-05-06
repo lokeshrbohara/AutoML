@@ -1,3 +1,4 @@
+from traceback import print_tb
 from flask import Flask, request, redirect,jsonify
 from flask_mail import Mail,Message
 from flask_cors import CORS, cross_origin
@@ -197,9 +198,20 @@ def encodeData(path_of_csv, n):
     only_str = []
     to_remove = []
     n = len(df.index)
-    for i in range(len(df.columns)):
+    print("====================")
+    print("====================")
+    print(df.columns)
+    print("====================")
+    print("====================")
+    for i in range(len(df.columns)-1):
         if(type(df[df.columns[i]].iloc[0]) == str):
             only_str.append(df.columns[i])
+
+    print("====================")
+    print("====================")
+    print(only_str)
+    print("====================")
+    print("====================")
 
     for i in only_str:
         if(not isCategorical(df[i],n)): 
@@ -207,14 +219,17 @@ def encodeData(path_of_csv, n):
 
     print("----------------------------------")
     print(only_str)
-    df = df.drop(to_remove, axis = 1)
+
+    to_remove.append(df.columns[-1])
+
+    # df = df.drop(to_remove, axis = 1)
     column_trans_final = make_column_transformer((OneHotEncoder(handle_unknown='ignore'), only_str), remainder='passthrough')
     df = column_trans_final.fit_transform(df)
     df = pd.DataFrame(df)
     print(column_trans_final.get_feature_names())
     df = df.dropna()
     df.columns = column_trans_final.get_feature_names()
-    print(df)
+    # print(df)
     df.to_csv(path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv"), index=False)
 
     return path_of_csv.replace("_Categorical_Processed.csv", "_Final_Encoded.csv")
@@ -231,8 +246,8 @@ def onUploadBuilder():
         filteredCols=request.form['cols'].split(",")
         outputcol=int(request.form['outputcol'])
         useremail=request.form['useremail']
-        username=useremail.split("@")[0]
-        
+        username=useremail.split("@")[0].split(".")[0]
+        print(useremail.split("@")[0].split(".")[0])
         # converting boolean lists to numbers
         filteredRowsLst=[]
         filteredColsLst=[]
@@ -298,7 +313,8 @@ def onUploadBuilder():
         inputColsDtypes=",".join(inputColsDtypes)
         inputColsDtypes="["+inputColsDtypes+"]"
         f = open(username+".py", "w")
-        f.write("""import tkinter as tk
+        f.write("""
+from tkinter import filedialog
 from tkinter import *
 import pickle
 import evalml
@@ -306,14 +322,23 @@ import pandas as pd
 import numpy as np
 import os
 
-from tkinter import *
 window=Tk()
-# add widgets here
 
-input_var=tk.StringVar()
-input_label = tk.Label(window, text = 'Enter values separated by "," \\n """+inputColumns+"""', font=('calibre',10, 'bold'))
-input_entry = tk.Entry(window,textvariable = input_var, font=('calibre',10,'normal'),justify="center",width=50)
-output_label =tk.Label(window,text="",font=('calibre',10, 'bold'))
+input_var=StringVar()
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+input_label = Label(row, text = 'Enter values separated by "," \\n """+inputColumns+"""', font=('calibre',10, 'bold'),wraplength=500)
+input_label.pack()
+
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 10 , pady = 5)
+input_entry = Entry(window,textvariable = input_var, font=('calibre',10,'normal'),justify="center",width=50)
+input_entry.pack(fill = X,padx=10)
+
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+output_label =Label(window,text="",font=('calibre',10, 'bold'))
+output_label.pack()  
 
 def browse_file():
     global df
@@ -341,9 +366,9 @@ def getOutput():
     output_label['text']=model.predict(X).iloc[0]
 
 def getMultipleOutput():
-    with open("model.pkl" , 'rb') as f:
+    with open('"""+username+""".pkl' , 'rb') as f:
         model = pickle.load(f)
-    X = pd.DataFrame(df, columns =["cylinders","displacement","horsepower","weight","acceleration","model year","origin"])
+    X = pd.DataFrame(df, columns ="""+inputColumns+""")
     Y=model.predict(X)
     df['OUTPUT']=Y.to_series()
     print(df.head())
@@ -354,17 +379,18 @@ def getMultipleOutput():
 
 
 
-button_singleInput = tk.Button(window, text ="Submit", command=getOutput)
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+button_singleInput = Button(window, text ="Submit", command=getOutput)
+button_singleInput.pack(padx = 5, pady = 5)
 
-button_multipleInput = tk.Button(window, text ="Upload Exelsheet", command=browse_file)
+row=Frame(window)
+row.pack(side = TOP, fill = X, padx = 5 , pady = 5)
+button_multipleInput = Button(window, text ="Upload Exelsheet", command=browse_file)
+button_multipleInput.pack(padx=5,pady=5)
 
 window.title('Sample Usage')
-window.geometry("600x300+10+20")
-input_label.grid(row=0,column=0,pady=10)
-input_entry.grid(row=1,column=0,pady=10)
-button_singleInput.grid(row=2,column=0,pady=10)
-output_label.grid(row=3,column=0,pady=10)
-button_multipleInput.grid(row=4,column=0,pady=10)
+window.geometry("600x400+10+20")
 
 window.mainloop()""")
         f.close()

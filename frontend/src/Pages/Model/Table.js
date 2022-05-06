@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./Table.css";
 function Table({
@@ -11,17 +10,17 @@ function Table({
 }) {
   const handleOnChange = (type, position) => {
     let checkedState = [];
-    if (type === "col") {
+    if (type == "col") {
       checkedState = colStatus;
       const updatedCheckedState = checkedState.map((item, index) =>
-        index === position ? !item : item
+        index == position ? !item : item
       );
       console.log(updatedCheckedState);
       setcolStatus(updatedCheckedState);
     } else {
       checkedState = rowStatus;
       const updatedCheckedState = checkedState.map((item, index) =>
-        index === position ? !item : item
+        index == position ? !item : item
       );
       console.log(updatedCheckedState);
       setrowStatus(updatedCheckedState);
@@ -56,7 +55,7 @@ function Table({
           return (
             <tr>
               {row.map((val, iidx) => {
-                if (iidx === 0) {
+                if (iidx == 0) {
                   return (
                     <td>
                       <span style={{ margin: "10px" }}>

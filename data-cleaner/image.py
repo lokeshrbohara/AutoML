@@ -9,7 +9,7 @@ import glob
 import json
 import base64
 
-from pyLDAvis import display
+# from pyLDAvis import display
 
 def UnzipFolder(folder_path, user):
     with ZipFile(folder_path+"\\"+user, 'r') as zipObj:

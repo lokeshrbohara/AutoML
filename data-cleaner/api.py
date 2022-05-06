@@ -38,12 +38,12 @@ from sklearn.model_selection import cross_val_score
 
 
 load_dotenv()
-UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
-IMAGE_UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner'
+# UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner\\uploads'
+# IMAGE_UPLOAD_FOLDER = 'D:\\Github Repositories\\AutoML\\data-cleaner'
 # IMAGE_UPLOAD_FOLDER = 'D:\\AutoML\\data-cleaner'
 # UPLOAD_FOLDER = 'D:\\AutoML\\data-cleaner\\uploads'
-# IMAGE_UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner'
-# UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner\\uploads'
+IMAGE_UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner'
+UPLOAD_FOLDER = 'D:\\FYP\\AutoML\\data-cleaner\\uploads'
 
 app = Flask(__name__)
 cors = CORS(app, resources={"/*": {"origins": "*"}})

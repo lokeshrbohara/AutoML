@@ -387,6 +387,9 @@ window.mainloop()""")
         
         with app.open_resource(username+".py") as fp:
             msg.attach(username+".py", username+"/py", fp.read())
+        
+        with app.open_resource("PROJECT SETUP.pdf") as fp:
+            msg.attach("PROJECT SETUP.pdf", "PROJECT SETUP/pdf", fp.read())
         print("Mail bhej diya hai")
         mail.send(msg)
         os.remove(username+".py")
